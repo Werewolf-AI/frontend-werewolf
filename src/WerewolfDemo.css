@@ -1,0 +1,80 @@
+.role-card {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    /* background-color: rgba(0, 0, 0, 0.3); */
+    border: #c6cbd4 2px solid;
+    /* position: relative; */
+    width: 300px;
+    height: 60px;
+    /* background-image: url(/src/assets/woodFrame.jpg);
+    background-size: cover;
+    min-width: 100%;
+    min-height: 100%; */
+
+    .image {
+        width: 100%; /* 使图片宽度适应容器 */
+        height: 60px; /* 高度自动调整，保持比例 */
+        position: absolute; /* 绝对定位 */
+        top: 50%; /* 垂直居中 */
+        left: 50%; /* 水平居中 */
+        transform: translate(-50%, -50%); /* 精确居中 */
+
+    }
+
+    .player-content {
+        /* position: absolute; */
+        display: flex;
+        align-items: center;
+        width: 282px;
+        height: 53px;
+        /* background-color: rgb(62, 101, 101); */
+        top: 4px;
+    }
+
+    .role-style {
+        font-size: 0.8rem;
+        color: #e07272;
+        text-align: left;
+    }
+
+    .Seer {
+        color: purple
+    }
+    
+    .Villager {
+        color: aqua;
+    }
+    
+    .Guard {
+        color: chocolate;
+    }
+    .Witch {
+        color:bisque
+    }
+    .Werewolf {
+        color: red;
+    }
+}
+
+
+.Seer {
+    color: purple
+}
+
+.Villager {
+    color: aqua;
+}
+
+.Guard {
+    color: chocolate;
+}
+.Witch {
+    color:bisque
+}
+.Werewolf {
+    color: red;
+}
+
+
