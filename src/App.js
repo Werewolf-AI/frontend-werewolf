@@ -8,13 +8,18 @@ function App() {
     setStep(val)
   }
   const [step, setStep] = useState(0)
+  const [isInitEnd, setIsInitEnd] = useState(false)
   const [outCome, getOutCome] = useState([])
+
+  const UpdatedInitEnd = (val) => {
+    setIsInitEnd(val)
+  }
   return (
     <div className="App">
       <div className='overlay'></div>
       <div className='content'>
-        {step === 0 &&(<GameConfig handleStep={handleStep} />)}
-        {step === 1 && (<WerewolfDemo />)} 
+        {step === 0 &&(<GameConfig handleStep={handleStep} UpdatedInitEnd={UpdatedInitEnd} />)}
+        {step === 1 && (<WerewolfDemo isInitEnd={isInitEnd} />)} 
       </div>
     </div>
   );

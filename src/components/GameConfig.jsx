@@ -4,7 +4,8 @@ import { Container } from "lucide-react";
 import "./gameConfig.css"
 
 const GameConfig = ({
-    handleStep
+    handleStep,
+    UpdatedInitEnd
 }) => {
     const [rounds, setRounds] = useState(null)
     const [number, setNumber] = useState(null)
@@ -37,6 +38,8 @@ const GameConfig = ({
         console.log('res', response)
         if (!response.ok) {
           throw new Error('Failed to fetch game data');
+        }else {
+            UpdatedInitEnd(true)
         }
       } catch (err) {
         setLoading(false);

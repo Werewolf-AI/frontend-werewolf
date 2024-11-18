@@ -11,7 +11,9 @@ import Seer from './assets/avatars/Seer.jpg'
 import Moderator from './assets/avatars/start.jpg'
 
 
-const WerewolfDemo = () => {
+const WerewolfDemo = ({
+  isInitEnd= false
+}) => {
   const [currentRound, setCurrentRound] = useState(100);
   const [winlossTable, setWinLossTable] = useState([{
       name: "player1",
@@ -28,6 +30,7 @@ const WerewolfDemo = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const messagesEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
   const [gameData, setGameData] = useState({
     players: [],
     dialogue: []
@@ -35,7 +38,19 @@ const WerewolfDemo = () => {
   const [roleResponsibility, setResponsibility] = useState([
     {
       name: "wereWolf",
-      resp: "kill all good guy"
+      resp: "My step-by-step thought process: 1. I know that Player6 is my fellow werewolf, so I can trust them. 2. Among the living players, I need to consider who poses the greatest threat to us as werewolves. 3. Player1 seems to be the most suspicious based on the dynamics of the game, and eliminating them could reduce the risk of being discovered. Therefore, I will choose to hunt Player1."
+    },{
+      name: "Guard",
+      resp: "My step-by-step thought process: 1. I need to assess which player might be targeted by the werewolves tonight. 2. Since I have no prior information about the players' roles or actions, I will choose to protect a player who seems to be a potential target based on their position in the game. 3. I will protect Player1, as they might be perceived as a threat by the werewolves due to their active participation in discussions."
+    }, {
+      name: "Witch",
+      resp: "Player1 has been killed by the werewolves. As the Witch, I have the ability to save one player who has been killed. I need to consider the implications of saving Player1. If Player1 is a villager, saving them would be beneficial for our side. However, if Player1 is a werewolf, saving them would strengthen the werewolf team. I have no prior knowledge of Player1's role, but since they were killed, it is likely they were a villager. Therefore, I should save Player1 to maintain our numbers and increase our chances of winning."
+    }, {
+      name: "Seer",
+      resp: "My step-by-step thought process: 1. I need to identify a player who could potentially be a werewolf or someone who might be a threat to the villagers. 2. Since I have no prior information about the players' actions or behaviors, I will choose a player randomly to verify their identity. 3. I will select Player1 to verify, as I want to start gathering information about the players and Player1 is a good candidate to begin with."
+    }, {
+      name: "Villager",
+      resp: "My step-by-step thought process: 1. Player2 claims to be the Seer and accuses Player3, which is supported by Player5, the Witch. This makes Player2's claim somewhat credible. 2. Player3 is heavily accused and has no strong defense, while Player6 and Player7 are questioning Player2's claim, which raises suspicion about them. 3. Given the current voting trend and the support for Player2, I believe it is safer to vote against Player3, as they are the primary target and could be a werewolf."
     }
   ])
   const [loading, setLoading] = useState(true);
@@ -58,17 +73,20 @@ const WerewolfDemo = () => {
         setLoading(false);
       }
     };
-       fetchGameData();
 
-    const intervalId = setInterval(fetchGameData, 2000);
+    fetchGameData();
+    let intervalId
+    if (!isInitEnd) {
+      intervalId = setInterval(fetchGameData, 5000);
+    }
 
     // Clean up interval on component unmount
-    return () => clearInterval(intervalId);
-  }, []);
-
-  useEffect(() => {
-    console.log('Updated gameData:', gameData);
-  }, [gameData]);
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    }
+  }, [isInitEnd]);
 
   const roleColors = {
     "Guard": "bg-blue-100",
@@ -88,11 +106,6 @@ const WerewolfDemo = () => {
     "Moderator": Moderator
   }  
 
-  // const rows = [
-  //   { name: "player1", win: 3, loss: 4},
-  //   { name: "player2", win: 1, loss: 5}
-  // ]
-
   // 自动滚动到底部
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -100,35 +113,31 @@ const WerewolfDemo = () => {
 
   // 处理自动播放
   useEffect(() => {
+    console.log('Updated gameData:', gameData);
     let timer;
     if (isPlaying && currentStep < gameData?.dialogue.length - 1) {
       timer = setTimeout(() => {
         setCurrentStep(prev => prev + 1);
       }, 2000);
-    } else if (currentStep >= gameData?.dialogue.length - 1) {
-      setIsPlaying(false);
     }
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
+    }
+    // else if (currentStep >= gameData?.dialogue.length - 1) {
+    //   setIsPlaying(false);
+    // }
     return () => clearTimeout(timer);
   }, [isPlaying, currentStep, gameData?.dialogue.length]);
 
   // 当消息更新时滚动到底部
-  useEffect(() => {
-    scrollToBottom();
-  }, [currentStep]);
+  // useEffect(() => {
+    // scrollToBottom();
+  // }, [currentStep]);
 
   const handleUserChange = (event) => {
     console.log('user', event.target)
     setCurUser(event.target.value)
   }
-
-  // const onClickPlayer = (event) => {
-  //   console.log('event', event)
-  //   const { id, name, role } = event
-  //   if(role === "Werewolf") {
-  //     // 开对话弹窗
-  //     setDialogModalVisible(true)
-  //   }
-  // }
 
   if (loading) {
     return <div className="flex justify-center items-center h-screen">Loading...</div>;
@@ -164,7 +173,7 @@ const WerewolfDemo = () => {
           <h3 className="text-lg font-semibold mb-4 text-left text-antiquewhite">Game Role</h3>
               <div className='space-y-3'>
                 {roleResponsibility.map(item => (
-                  <div key={item.name} className='role-card'>
+                  <div key={item.name} className='role-resp-card'>
                     <div className='player-content'>
                       <div className="ml-3 flex-1">
                         <div className="font-medium text-left text-yellow-400">{item.name}</div>
@@ -183,7 +192,6 @@ const WerewolfDemo = () => {
             {gameData.players.map((player) => (
               <div 
               key={player.id}
-              // onClick={() => onClickPlayer(player)}
               className="role-card"
               >
                 <div className='player-content'>
@@ -204,33 +212,35 @@ const WerewolfDemo = () => {
         {/* 中间对话展示区 */}
         <div className="md:col-span-3">
           <h3 className="text-lg font-semibold mb-4 text-left text-antiquewhite">Game Progress</h3>
-          <div className="p-4 mx-6 rounded-lg shadow-md mb-4 overflow-y-auto" style={{ height: '80vh' }}>
+          <div className="p-4 mx-6 rounded-lg shadow-md mb-4 overflow-y-auto" style={{ height: '80vh', transition: 'scroll-behavior 1s' }} ref={chatContainerRef}>
             <div className="space-y-4">
               {gameData.dialogue.slice(0, currentStep + 1).map((message, index) => {
                 const player = gameData.players.find(p => p.name === message.speaker);
+                console.log("player", player)
                 return (
                   <div key={index} className="flex space-x-3 bg-white bg-opacity-50">
                     <div className="flex-shrink-0">
                       <div className={`h-8 w-8 rounded-full ${roleColors[player?.role]} flex items-center justify-center`}>
                         {/* <User className="h-5 w-5" /> */}
-                        <Avatar alt={player?.name} src={roleAvatar[player?.role]} />
+                        <Avatar alt={player?.name} src={roleAvatar[message?.role]} />
                       </div>
                     </div>
                     <div className="flex-1">
                       <div className="flex items-baseline text-left">
                         <span className="font-medium text-yellow-400">{message.speaker}</span>
-                        <span className={`ml-2 text-sm ${player?.role}`}>{player?.role}</span>
+                        <span className={`ml-2 text-sm ${player?.role}`}>{message?.role}</span>
                         <span className="ml-2 text-xs text-gray-400">{message.type}</span>
                       </div>
                       <div className="mt-1 text-sm text-gray-100 text-left">
                         {message.content}
                       </div>
                     </div>
+                    {/* <div ref={index === currentStep ? messagesEndRef : null} /> */}
                   </div>
                 );
               })}
               {/* 添加一个空的div作为滚动目标 */}
-              <div ref={messagesEndRef} />
+              {/* <div ref={messagesEndRef} /> */}
             </div>
           </div>
 
