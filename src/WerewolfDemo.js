@@ -14,7 +14,6 @@ import Moderator from './assets/avatars/start.jpg'
 const WerewolfDemo = ({
   isInitEnd= false
 }) => {
-  const [currentRound, setCurrentRound] = useState(100);
   const [winlossTable, setWinLossTable] = useState([{
       name: "player1",
       win: 3,
@@ -25,8 +24,6 @@ const WerewolfDemo = ({
       loss: 4
     }
   ])
-  const [curUser, setCurUser] = useState("")
-  const [ dialogModalVisible, setDialogModalVisible] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const messagesEndRef = useRef(null);
@@ -35,6 +32,8 @@ const WerewolfDemo = ({
     players: [],
     dialogue: []
   });
+  const [curRound, setCurRound] = useState(null)
+  const [totalRound, setTotalRound] = useState(null)
   const [roleResponsibility, setResponsibility] = useState([
     {
       name: "wereWolf",
@@ -65,8 +64,17 @@ const WerewolfDemo = ({
           throw new Error('Failed to fetch game data');
         }
         const data = await response.json();
-        console.log('data', data, gameData)
         setGameData(data);
+        setCurRound(data.current_round)
+        setTotalRound(data.n_rounds)
+        const tableArray = data.players
+          .filter(item => item.name).map(item => ({
+              name: item.name,
+              win: item.win,
+              loss: item.loss
+          }));
+        setWinLossTable(tableArray)
+        
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -87,6 +95,10 @@ const WerewolfDemo = ({
       }
     }
   }, [isInitEnd]);
+
+  useEffect(() => {
+    console.log('winloss', winlossTable)
+  }, [winlossTable])
 
   const roleColors = {
     "Guard": "bg-blue-100",
@@ -113,7 +125,6 @@ const WerewolfDemo = ({
 
   // 处理自动播放
   useEffect(() => {
-    console.log('Updated gameData:', gameData);
     let timer;
     if (isPlaying && currentStep < gameData?.dialogue.length - 1) {
       timer = setTimeout(() => {
@@ -134,11 +145,6 @@ const WerewolfDemo = ({
     // scrollToBottom();
   // }, [currentStep]);
 
-  const handleUserChange = (event) => {
-    console.log('user', event.target)
-    setCurUser(event.target.value)
-  }
-
   if (loading) {
     return <div className="flex justify-center items-center h-screen">Loading...</div>;
   }
@@ -148,7 +154,7 @@ const WerewolfDemo = ({
   }
 
   return (
-    <div className="p-6 mx-6 rounded-lg ">
+    <div className="p-3 mx-6 rounded-lg ">
       {/* <div style={{ display: 'flex', flexDirection: 'column'}}>
         <h3 className="text-lg font-semibold mb-4 text-left text-yellow-400">Player Role</h3>
         <Select style={{ width: '250px' }} value={curUser} onChange={handleUserChange}>
@@ -169,13 +175,13 @@ const WerewolfDemo = ({
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
 
           {/** 角色介绍 */}
-        <div className="p-4 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold mb-4 text-left text-antiquewhite">Game Role</h3>
+        <div className="p-4 rounded-lg shadow-md" style={{ width: '10rem'}}>
+          <h3 className="text-[1.5vw] font-semibold mb-4 text-left text-antiquewhite">Game Role</h3>
               <div className='space-y-3'>
                 {roleResponsibility.map(item => (
                   <div key={item.name} className='role-resp-card'>
                     <div className='player-content'>
-                      <div className="ml-3 flex-1">
+                      <div className="flex-1">
                         <div className="font-medium text-left text-yellow-400">{item.name}</div>
                         <div className={`role-style`}>{item?.resp}</div>
                       </div>
@@ -186,8 +192,8 @@ const WerewolfDemo = ({
         </div>
 
         {/* 左侧玩家列表 */}
-        <div className="p-4 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold mb-4 text-left text-antiquewhite">Player List</h3>
+        <div className="p-4 rounded-lg shadow-md" style={{ width: '50vh'}}>
+          <h3 className="text-[1.5vw] font-semibold mb-4 text-left text-antiquewhite">Player List</h3>
           <div className="space-y-3">
             {gameData.players.map((player) => (
               <div 
@@ -200,7 +206,7 @@ const WerewolfDemo = ({
                     <Avatar alt={player.name} src={roleAvatar[player?.role]} />
                   </div>
                   <div className="ml-3 flex-1">
-                    <div className="font-medium text-left text-yellow-400">{player.name}</div>
+                    <div className=" text-[1.5vw] font-medium text-left text-yellow-400">{player.name}</div>
                     <div className={`role-style ${player?.role}`}>{player?.role}</div>
                   </div>
                 </div>
@@ -216,7 +222,6 @@ const WerewolfDemo = ({
             <div className="space-y-4">
               {gameData.dialogue.slice(0, currentStep + 1).map((message, index) => {
                 const player = gameData.players.find(p => p.name === message.speaker);
-                console.log("player", player)
                 return (
                   <div key={index} className="flex space-x-3 bg-white bg-opacity-50">
                     <div className="flex-shrink-0">
@@ -286,14 +291,18 @@ const WerewolfDemo = ({
           <div className='col-span-1 md:col-span-2'>
             <h3 className="text-lg font-semibold mb-4 text-left text-antiquewhite">Rank</h3>
             <div className='flex space-x-3'>
+              <span className="font-medium text-yellow-400">current Rounds:</span>
+              <span className="mt-1 text-sm text-gray-100 text-left">{curRound}</span>
+            </div>
+            <div className='flex space-x-3'>
               <span className="font-medium text-yellow-400">total Rounds:</span>
-              <span className="mt-1 text-sm text-gray-100 text-left">{currentRound}</span>
+              <span className="mt-1 text-sm text-gray-100 text-left">{totalRound}</span>
             </div>
             <div className='flex space-x-3'>
               <span className="font-medium text-yellow-400">Win/Loss:</span>
               <div className='mt-1 text-sm text-gray-100 text-left'>
               {/* <TableContainer component={Paper} sx={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}> */}
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table sx={{ width: '100vh' }} aria-label="simple table">
                   <TableHead>
                     <TableRow>
                       <TableCell></TableCell>

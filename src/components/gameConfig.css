@@ -1,9 +1,28 @@
 .text-input {
-    width: 300px;
+    width: 20rem;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 8px;
-    height: 60px;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    height: 3rem;
+}
+
+.select-input {
+    width: 21rem;
+    height: 5rem;
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+}
+
+.ant-select-selector {
+    background-color: transparent !important;
+}
+.ant-select-selection-item {
+    color: #ffff;
+    font-family: 'pressStart2P', cursive;
+}
+.ant-select-selection-search {
+    color: #ffff;
+    font-family: 'pressStart2P', cursive;
 }
 
 .config-form {
@@ -11,10 +30,18 @@
     flex-direction: column;
     align-items: center;
     padding: 1.5rem;
+
+    .next-button {
+        font-size: 1rem; 
+        font-weight: bold; 
+        color: white;
+        font-family: 'pressStart2P', cursive;
+    }
 }
 
 .form-item {
     display: flex;
     align-items: center;
-    padding-top: 10px;
+    padding-top: 1rem;
 }
+

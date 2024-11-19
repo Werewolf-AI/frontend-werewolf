@@ -6,8 +6,8 @@
     /* background-color: rgba(0, 0, 0, 0.3); */
     border: #c6cbd4 2px solid;
     /* position: relative; */
-    width: 300px;
-    height: 60px;
+    width: 45vh;
+    height: 6vw;
     /* background-image: url(/src/assets/woodFrame.jpg);
     background-size: cover;
     min-width: 100%;
@@ -64,27 +64,27 @@
     padding: 0.5rem;
     border-radius: 0.5rem;
     /* background-color: rgba(0, 0, 0, 0.3); */
-    border: #c6cbd4 2px solid;
+    border: #c6cbd4 0.1rem solid;
     /* position: relative; */
-    width: 300px;
-    height: 200px;
+    width: 38vh;
+    height: 12rem;
 
     .player-content {
         /* position: absolute; */
         display: flex;
         align-items: center;
-        width: 282px;
-        height: 53px;
+        width: 16rem;
+        height: 10rem;
         /* background-color: rgb(62, 101, 101); */
         top: 4px;
     }
 
     .role-style {
-        font-size: 0.8rem;
+        font-size: 3vh;
         color: #e07272;
         text-align: left;
         overflow-y: auto;
-        max-height: 180px;
+        max-height: 10rem;
     }
 }
 
