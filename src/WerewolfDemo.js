@@ -14,16 +14,7 @@ import Moderator from './assets/avatars/start.jpg'
 const WerewolfDemo = ({
   isInitEnd= false
 }) => {
-  const [winlossTable, setWinLossTable] = useState([{
-      name: "player1",
-      win: 3,
-      loss: 2
-    }, {
-      name: "player2",
-      win: 2,
-      loss: 4
-    }
-  ])
+  const [winlossTable, setWinLossTable] = useState([])
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const messagesEndRef = useRef(null);
@@ -95,10 +86,6 @@ const WerewolfDemo = ({
       }
     }
   }, [isInitEnd]);
-
-  useEffect(() => {
-    console.log('winloss', winlossTable)
-  }, [winlossTable])
 
   const roleColors = {
     "Guard": "bg-blue-100",
@@ -302,7 +289,7 @@ const WerewolfDemo = ({
               <span className="font-medium text-yellow-400">Win/Loss:</span>
               <div className='mt-1 text-sm text-gray-100 text-left'>
               {/* <TableContainer component={Paper} sx={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}> */}
-                <Table sx={{ width: '100vh' }} aria-label="simple table">
+                {winlossTable && <Table sx={{ width: '100vh' }} aria-label="simple table">
                   <TableHead>
                     <TableRow>
                       <TableCell></TableCell>
@@ -324,7 +311,7 @@ const WerewolfDemo = ({
                       </TableRow>
                     ))}
                   </TableBody>
-                </Table>
+                </Table>}
               {/* </TableContainer> */}
               </div>
             </div>
