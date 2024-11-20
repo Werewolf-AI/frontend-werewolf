@@ -1,0 +1,13 @@
+.container {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+}
+.guide {
+    width: 80vw;
+    height: 50vh;
+    color: #e8d1b2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
