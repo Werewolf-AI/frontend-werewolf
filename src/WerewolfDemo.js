@@ -133,7 +133,7 @@ const WerewolfDemo = ({
   // }, [currentStep]);
 
   if (loading) {
-    return <div className="flex justify-center items-center h-screen">Loading...</div>;
+    return <div className="flex justify-center items-center h-screen text-blue-500">Loading...</div>;
   }
 
   if (error) {
