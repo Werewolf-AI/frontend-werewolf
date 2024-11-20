@@ -47,33 +47,33 @@ const WerewolfDemo = ({
   const [error, setError] = useState(null);
 
   // Fetch game data from backend
-  useEffect(() => {
-    const fetchGameData = async () => {
-      try {
-        const response = await fetch('https://dd8d3012-bf4e-4c9e-80d8-1b041ca9c18b-00-2ap7khwe77mtz.pike.replit.dev:9000/api/game-data') //('http://localhost:9000/api/game-data');
-        if (!response.ok) {
-          throw new Error('Failed to fetch game data');
-        }
-        const data = await response.json();
-        setGameData(data);
-        setCurRound(data.current_round)
-        setTotalRound(data.n_rounds)
-        const tableArray = data.players
-          .filter(item => item.name).map(item => ({
-              name: item.name,
-              win: item.win,
-              loss: item.loss
-          }));
-        setWinLossTable(tableArray)
-        
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
+  const fetchGameData = async () => {
+    try {
+      const response = await fetch('https://dd8d3012-bf4e-4c9e-80d8-1b041ca9c18b-00-2ap7khwe77mtz.pike.replit.dev:9000/api/game-data') //('http://localhost:9000/api/game-data');
+      if (!response.ok) {
+        throw new Error('Failed to fetch game data');
       }
-    };
-
-    fetchGameData();
+      setError(null);
+      const data = await response.json();
+      setGameData(data);
+      setCurRound(data.current_round)
+      setTotalRound(data.n_rounds)
+      const tableArray = data.players
+        .filter(item => item.name).map(item => ({
+            name: item.name,
+            win: item.win,
+            loss: item.loss
+        }));
+      setWinLossTable(tableArray)
+      
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    // fetchGameData();
     let intervalId
     if (!isInitEnd) {
       intervalId = setInterval(fetchGameData, 5000);
@@ -303,7 +303,7 @@ const WerewolfDemo = ({
                         key={row.name}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                       >
-                        <TableCell component="th" scope="row" sx={{ mt: 1, fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>
+                        <TableCell scope="row" sx={{ mt: 1, fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>
                           {row.name}
                         </TableCell>
                         <TableCell align="right" sx={{ mt: 1, fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>{row.win}</TableCell>
