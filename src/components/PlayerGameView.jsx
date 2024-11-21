@@ -287,7 +287,7 @@ const PlayerGameView = ({
                       </div>
                       <div className="flex items-baseline text-left" style={{ fontFamily: 'pressStart2P' }}>
                         <span className={`ml-2 text-sm ${player?.role}`} style={{ fontSize: '2.5vw'}}>{message?.role}</span>
-                        <span className="ml-2 text-xs text-gray-400" style={{ fontSize: '2.5vw'}}>{message.type}</span>
+                        <span className="ml-2 text-xs text-black-400" style={{ fontSize: '2.5vw'}}>{message.type}</span>
                       </div>
                       <div className="mt-1 mr-1 text-sm text-gray-100 text-left">
                         {message.content}

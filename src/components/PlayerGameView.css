@@ -44,10 +44,10 @@
     }
     
     .Guard {
-        color: chocolate;
+        color: rgb(227, 102, 13);
     }
     .Witch {
-        color:bisque
+        color:rgb(242, 239, 51)
     }
     .Werewolf {
         color: red;
