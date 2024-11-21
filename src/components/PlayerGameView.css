@@ -7,7 +7,7 @@
     border: #c6cbd4 2px solid;
     /* position: relative; */
     width: 70vw;
-    height: 15vh;
+    height: 5rem;
 
     .image {
         width: 100%; /* 使图片宽度适应容器 */
@@ -30,7 +30,7 @@
     }
 
     .role-style {
-        font-size: 4vw;
+        font-size: 3vw;
         color: #e07272;
         text-align: left;
     }

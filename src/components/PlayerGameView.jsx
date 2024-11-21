@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Play, Pause, SkipForward, SkipBack, User } from 'lucide-react';
-import { Tabs, Tab, Avatar, TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Box, Typography, AppBar} from "@mui/material"
+import { Tabs, Tab, Avatar, Table, TableBody, TableHead, TableRow, TableCell, Box, Typography, AppBar} from "@mui/material"
 import './PlayerGameView.css'
 import Guard from '../assets/avatars/Guard.jpg'
 import Villager from '../assets/avatars/Villager.jpg'
@@ -170,56 +170,52 @@ const PlayerGameView = ({
             <Tabs
             value={tabValue}
             onChange={handleTabChange}
-            //   indicatorColor="secondary"
-            //   textColor="inherit"
-            //   variant="fullWidth"
-            //   aria-label="full width tabs example"
             centered
             >
-                <Tab label="Role Description" 
+                <Tab label="Role" 
                 sx={{ 
-                    fontSize: '0.4rem', 
+                    fontSize: '0.6rem', 
                     fontFamily: 'pressStart2P',
                     fontWeight: 'bold', 
                     color: 'primary.main', 
-                    whiteSpace: 'normal', // 允许换行
-                    overflow: 'hidden',    // 隐藏溢出
-                    textAlign: 'center',   // 中心对齐
+                    whiteSpace: 'normal',
+                    overflow: 'hidden', 
+                    textAlign: 'center', 
                     width: '18vw',
                 }}  
                 />
-                <Tab label="Players Information"
+                <Tab label="Players"
                     sx={{ 
-                        fontSize: '0.4rem', 
+                        fontSize: '0.6rem', 
                         fontFamily: 'pressStart2P',
                         fontWeight: 'bold', 
                         color: 'primary.main', 
-                        whiteSpace: 'normal', // 允许换行
-                        overflow: 'hidden',    // 隐藏溢出
-                        textAlign: 'center',   // 中心对齐
+                        whiteSpace: 'normal',
+                        overflow: 'hidden', 
+                        textAlign: 'center',
                         width: '18vw',
                     }}  
                 />
-                <Tab label="Game Process"  
+                <Tab label="Game"  
                     sx={{ 
-                        fontSize: '0.4rem', 
+                        fontSize: '0.6rem', 
                         fontFamily: 'pressStart2P',
                         fontWeight: 'bold', 
                         color: 'primary.main', 
-                        whiteSpace: 'normal', // 允许换行
-                        overflow: 'hidden',    // 隐藏溢出
-                        textAlign: 'center',   // 中心对齐
+                        whiteSpace: 'normal', 
+                        overflow: 'hidden',
+                        textAlign: 'center',
                         maxWidth: '18vw',
                     }}  
                 />
-                <Tab label="Ranking Board" 
+                <Tab label="Ranking" 
                     sx = {{ 
-                        fontSize: '0.4rem', 
+                        fontSize: '0.6rem', 
                         fontFamily: 'pressStart2P',
                         fontWeight: 'bold', 
                         color: 'primary.main', 
                         whiteSpace: 'normal', // 允许换行
-                        overflow: 'hidden',    // 隐藏溢出
+                        // overflow: 'hidden',
                         textAlign: 'center',   // 中心对齐
                         maxWidth: '18vw',
                     }}  
@@ -228,8 +224,8 @@ const PlayerGameView = ({
         </Box>
       <TabPanel value={tabValue} index={0} dir={theme.direction}>
         {/** 角色介绍 */}
-        <div className="p-4 rounded-lg shadow-md" style={{ width: '80vw', fontFamily: 'pressStart2P' }}>
-          <h3 className="text-[5vw] font-semibold mb-4 text-left text-antiquewhite">Game Role</h3>
+        <div className="rounded-lg shadow-md" style={{ width: '80vw', fontFamily: 'pressStart2P' }}>
+          <h3 className="text-[5vw] font-semibold mb-4 text-left text-antiquewhite">Role</h3>
               <div className='space-y-3'>
                 {roleResponsibility?.map(item => (
                   <div key={item.name} className='role-resp-card'>
@@ -246,8 +242,8 @@ const PlayerGameView = ({
       </TabPanel>
       <TabPanel value={tabValue} index={1} dir={theme.direction}>
         {/* 左侧玩家列表 */}
-        <div className="p-4 rounded-lg shadow-md" style={{ width: '80vw', fontFamily: 'pressStart2P' }}>
-          <h3 className="text-[5vw] font-semibold mb-4 text-left text-antiquewhite">Player List</h3>
+        <div className="rounded-lg shadow-md" style={{ width: '80vw', fontFamily: 'pressStart2P' }}>
+          <h3 className="text-[5vw] font-semibold mb-4 text-left text-antiquewhite">Players</h3>
           <div className="space-y-3">
             {Array.isArray(gameData?.players) && gameData?.players?.map((player) => (
               <div 
@@ -260,7 +256,7 @@ const PlayerGameView = ({
                     <Avatar alt={player.name} src={roleAvatar[player?.role]} />
                   </div>
                   <div className="ml-3 flex-1">
-                    <div className=" text-[5vw] font-medium text-left text-yellow-400">{player.name}</div>
+                    <div className=" text-[4vw] font-medium text-left text-yellow-400">{player.name}</div>
                     <div className={`role-style ${player?.role}`}>{player?.role}</div>
                   </div>
                 </div>
@@ -272,7 +268,7 @@ const PlayerGameView = ({
       <TabPanel value={tabValue} index={2} dir={theme.direction}>
         {/* 中间对话展示区 */}
         <div className="md:col-span-3">
-          <h3 className="text-lg font-semibold mb-4 text-left text-antiquewhite" style={{ fontFamily: 'pressStart2P' }}>Game Progress</h3>
+          <h3 className="text-[5vw] font-semibold mb-4 text-left text-antiquewhite" style={{ fontFamily: 'pressStart2P' }}>Game</h3>
           <div className="mx-2 rounded-lg shadow-md mb-4 overflow-y-auto" style={{ height: '70vh', transition: 'scroll-behavior 1s' }} ref={chatContainerRef}>
             <div className="space-y-4">
               {gameData.dialogue?.slice(0, currentStep + 1)?.map((message, index) => {
@@ -286,8 +282,10 @@ const PlayerGameView = ({
                       </div>
                     </div>
                     <div className="flex-1">
+                      <div>
+                        <span className="ml-2 font-medium text-yellow-400" style={{ fontSize: '3vw'}}>{message.speaker}</span>
+                      </div>
                       <div className="flex items-baseline text-left" style={{ fontFamily: 'pressStart2P' }}>
-                        <span className="font-medium text-yellow-400" style={{ fontSize: '3vw'}}>{message.speaker}</span>
                         <span className={`ml-2 text-sm ${player?.role}`} style={{ fontSize: '2.5vw'}}>{message?.role}</span>
                         <span className="ml-2 text-xs text-gray-400" style={{ fontSize: '2.5vw'}}>{message.type}</span>
                       </div>
@@ -345,7 +343,7 @@ const PlayerGameView = ({
         {/** 排名 */}
         <div className='grid grid-cols-1 md:grid-cols-5 gap-6'>
           <div className='col-span-1 md:col-span-2' style={{ fontFamily: 'pressStart2P', fontSize: "0.6rem"}}>
-            <h3 className="text-lg font-semibold mb-4 text-left text-antiquewhite">Rank</h3>
+            <h3 className="text-lg font-semibold mb-4 text-left text-antiquewhite">Ranking</h3>
             <div className='flex space-x-3'>
               <span className="font-medium text-yellow-400">current Rounds:</span>
               <span className="mt-1 text-sm text-gray-100 text-left">{curRound}</span>
@@ -358,80 +356,39 @@ const PlayerGameView = ({
               <span className="font-medium text-yellow-400">Win/Loss:</span>
               <div className='mt-1 text-sm text-gray-100 text-left'>
               {/* <TableContainer component={Paper} sx={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}> */}
-                {winlossTable && <Table sx={{ width: '40vw' }} aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell></TableCell>
-                      <TableCell align="right" sx={{ mt: 1, fontSize: '0.5rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>Win</TableCell>
-                      <TableCell align="right" sx={{ mt: 1, fontSize: '0.5rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>Loss</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {winlossTable.map((row) => (
-                      <TableRow
-                        key={row.name}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                      >
-                        <TableCell scope="row" sx={{ mt: 1, fontSize: '0.5rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>
-                          {row.name}
-                        </TableCell>
-                        <TableCell align="right" sx={{ mt: 1, fontSize: '0.5rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>{row.win}</TableCell>
-                        <TableCell align="right" sx={{ mt: 1, fontSize: '0.5rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>{row.loss}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>}
               {/* </TableContainer> */}
               </div>
+            </div>
+            <div className='flex space-x-3'>
+              {winlossTable && 
+                <Table sx={{ width: '40vw' }} aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell></TableCell>
+                        <TableCell align="right" sx={{ mt: 1, fontSize: '0.5rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>Win</TableCell>
+                        <TableCell align="right" sx={{ mt: 1, fontSize: '0.5rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>Loss</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {winlossTable.map((row) => (
+                        <TableRow
+                          key={row.name}
+                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                          <TableCell scope="row" sx={{ mt: 1, fontSize: '0.5rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>
+                            {row.name}
+                          </TableCell>
+                          <TableCell align="right" sx={{ mt: 1, fontSize: '0.5rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>{row.win}</TableCell>
+                          <TableCell align="right" sx={{ mt: 1, fontSize: '0.5rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>{row.loss}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                </Table>  
+              }
             </div>
           </div>
         </div>
       </TabPanel>
-
-
-
-
-      {/* <div className="grid grid-cols-1 md:grid-cols-5 gap-6"> */}
-
-          {/** 角色介绍 */}
-        {/* <div className="p-4 rounded-lg shadow-md" style={{ width: '10rem'}}>
-          <h3 className="text-[1.5vw] font-semibold mb-4 text-left text-antiquewhite">Game Role</h3>
-              <div className='space-y-3'>
-                {roleResponsibility.map(item => (
-                  <div key={item.name} className='role-resp-card'>
-                    <div className='player-content'>
-                      <div className="flex-1">
-                        <div className="font-medium text-left text-yellow-400">{item.name}</div>
-                        <div className={`role-style`}>{item?.resp}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-        </div> */}
-
-        {/* 左侧玩家列表 */}
-        {/* <div className="p-4 rounded-lg shadow-md" style={{ width: '50vh'}}>
-          <h3 className="text-[1.5vw] font-semibold mb-4 text-left text-antiquewhite">Player List</h3>
-          <div className="space-y-3">
-            {gameData.players.map((player) => (
-              <div 
-              key={player.id}
-              className="role-card"
-              >
-                <div className='player-content'>
-                  <div className={`h-8 w-8 rounded-full ${roleColors[player?.role]} flex items-center justify-center flex-shrink-0`}>
-                    <Avatar alt={player.name} src={roleAvatar[player?.role]} />
-                  </div>
-                  <div className="ml-3 flex-1">
-                    <div className=" text-[1.5vw] font-medium text-left text-yellow-400">{player.name}</div>
-                    <div className={`role-style ${player?.role}`}>{player?.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div> */}
 
       {/* </div> */}
 
