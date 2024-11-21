@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, SkipForward, SkipBack, User } from 'lucide-react';
 import { MenuItem, Select,  Avatar, TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper} from "@mui/material"
-import DialogModal from './components/DialogModal.jsx'
-import './WerewolfDemo.css'
+import './WerewolfDemo.scss'
 import Guard from './assets/avatars/Guard.jpg'
 import Villager from './assets/avatars/Villager.jpg'
 import Witch from './assets/avatars/Witch.jpg'
@@ -73,7 +72,7 @@ const WerewolfDemo = ({
     }
   };
   useEffect(() => {
-    // fetchGameData();
+    fetchGameData();
     let intervalId
     if (!isInitEnd) {
       intervalId = setInterval(fetchGameData, 5000);
@@ -166,11 +165,11 @@ const WerewolfDemo = ({
           <h3 className="text-[1.5vw] font-semibold mb-4 text-left text-antiquewhite">Game Role</h3>
               <div className='space-y-3'>
                 {roleResponsibility.map(item => (
-                  <div key={item.name} className='role-resp-card'>
+                  <div key={item.name} className="roleRespCard">
                     <div className='player-content'>
                       <div className="flex-1">
                         <div className="font-medium text-left text-yellow-400">{item.name}</div>
-                        <div className={`role-style`}>{item?.resp}</div>
+                        <div className="roleStyle">{item?.resp}</div>
                       </div>
                     </div>
                   </div>
@@ -185,7 +184,7 @@ const WerewolfDemo = ({
             {gameData.players.map((player) => (
               <div 
               key={player.id}
-              className="role-card"
+              className="roleCard"
               >
                 <div className='player-content'>
                   <div className={`h-8 w-8 rounded-full ${roleColors[player?.role]} flex items-center justify-center flex-shrink-0`}>
@@ -193,8 +192,8 @@ const WerewolfDemo = ({
                     <Avatar alt={player.name} src={roleAvatar[player?.role]} />
                   </div>
                   <div className="ml-3 flex-1">
-                    <div className=" text-[1.5vw] font-medium text-left text-yellow-400">{player.name}</div>
-                    <div className={`role-style ${player?.role}`}>{player?.role}</div>
+                    <div className=" text-[1rem] font-medium text-left text-yellow-400">{player.name}</div>
+                    <div className={`roleStyle ${player?.role}`}>{player?.role}</div>
                   </div>
                 </div>
               </div>
