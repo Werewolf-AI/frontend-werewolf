@@ -48,7 +48,7 @@ const WerewolfDemo = ({
   // Fetch game data from backend
   const fetchGameData = async () => {
     try {
-      const response = await fetch('https://dd8d3012-bf4e-4c9e-80d8-1b041ca9c18b-00-2ap7khwe77mtz.pike.replit.dev:9000/api/game-data') //('http://localhost:9000/api/game-data');
+      const response = await fetch('http://34.143.146.120:59000/api/game-data') //('http://localhost:9000/api/game-data');
       if (!response.ok) {
         throw new Error('Failed to fetch game data');
       }
