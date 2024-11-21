@@ -165,8 +165,8 @@ const PlayerGameView = ({
 //   }
 
   return (
-    <div className="py-3 px-0 mx-6 rounded-lg ">
-        <Box sx={{ width: '100%' }} style={{ fontSize: '3vw' }}>
+    <div className="py-3 px-0 mx-6 rounded-lg " >
+        <Box sx={{ width: '100%' }} style={{ fontSize: '3vw', fontFamily: 'pressStart2P'  }}>
             <Tabs
             value={tabValue}
             onChange={handleTabChange}
@@ -228,7 +228,7 @@ const PlayerGameView = ({
         </Box>
       <TabPanel value={tabValue} index={0} dir={theme.direction}>
         {/** 角色介绍 */}
-        <div className="p-4 rounded-lg shadow-md" style={{ width: '80vw'}}>
+        <div className="p-4 rounded-lg shadow-md" style={{ width: '80vw', fontFamily: 'pressStart2P' }}>
           <h3 className="text-[5vw] font-semibold mb-4 text-left text-antiquewhite">Game Role</h3>
               <div className='space-y-3'>
                 {roleResponsibility?.map(item => (
@@ -246,7 +246,7 @@ const PlayerGameView = ({
       </TabPanel>
       <TabPanel value={tabValue} index={1} dir={theme.direction}>
         {/* 左侧玩家列表 */}
-        <div className="p-4 rounded-lg shadow-md" style={{ width: '80vw'}}>
+        <div className="p-4 rounded-lg shadow-md" style={{ width: '80vw', fontFamily: 'pressStart2P' }}>
           <h3 className="text-[5vw] font-semibold mb-4 text-left text-antiquewhite">Player List</h3>
           <div className="space-y-3">
             {Array.isArray(gameData?.players) && gameData?.players?.map((player) => (
@@ -272,7 +272,7 @@ const PlayerGameView = ({
       <TabPanel value={tabValue} index={2} dir={theme.direction}>
         {/* 中间对话展示区 */}
         <div className="md:col-span-3">
-          <h3 className="text-lg font-semibold mb-4 text-left text-antiquewhite">Game Progress</h3>
+          <h3 className="text-lg font-semibold mb-4 text-left text-antiquewhite" style={{ fontFamily: 'pressStart2P' }}>Game Progress</h3>
           <div className="mx-2 rounded-lg shadow-md mb-4 overflow-y-auto" style={{ height: '70vh', transition: 'scroll-behavior 1s' }} ref={chatContainerRef}>
             <div className="space-y-4">
               {gameData.dialogue?.slice(0, currentStep + 1)?.map((message, index) => {
@@ -286,10 +286,10 @@ const PlayerGameView = ({
                       </div>
                     </div>
                     <div className="flex-1">
-                      <div className="flex items-baseline text-left">
-                        <span className="font-medium text-yellow-400">{message.speaker}</span>
-                        <span className={`ml-2 text-sm ${player?.role}`}>{message?.role}</span>
-                        <span className="ml-2 text-xs text-gray-400">{message.type}</span>
+                      <div className="flex items-baseline text-left" style={{ fontFamily: 'pressStart2P' }}>
+                        <span className="font-medium text-yellow-400" style={{ fontSize: '3vw'}}>{message.speaker}</span>
+                        <span className={`ml-2 text-sm ${player?.role}`} style={{ fontSize: '2.5vw'}}>{message?.role}</span>
+                        <span className="ml-2 text-xs text-gray-400" style={{ fontSize: '2.5vw'}}>{message.type}</span>
                       </div>
                       <div className="mt-1 mr-1 text-sm text-gray-100 text-left">
                         {message.content}
@@ -344,7 +344,7 @@ const PlayerGameView = ({
       <TabPanel value={tabValue} index={3} dir={theme.direction}>
         {/** 排名 */}
         <div className='grid grid-cols-1 md:grid-cols-5 gap-6'>
-          <div className='col-span-1 md:col-span-2'>
+          <div className='col-span-1 md:col-span-2' style={{ fontFamily: 'pressStart2P', fontSize: "0.6rem"}}>
             <h3 className="text-lg font-semibold mb-4 text-left text-antiquewhite">Rank</h3>
             <div className='flex space-x-3'>
               <span className="font-medium text-yellow-400">current Rounds:</span>
@@ -372,11 +372,11 @@ const PlayerGameView = ({
                         key={row.name}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                       >
-                        <TableCell scope="row" sx={{ mt: 1, fontSize: '0.4rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>
+                        <TableCell scope="row" sx={{ mt: 1, fontSize: '0.5rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>
                           {row.name}
                         </TableCell>
-                        <TableCell align="right" sx={{ mt: 1, fontSize: '0.4rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>{row.win}</TableCell>
-                        <TableCell align="right" sx={{ mt: 1, fontSize: '0.4rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>{row.loss}</TableCell>
+                        <TableCell align="right" sx={{ mt: 1, fontSize: '0.5rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>{row.win}</TableCell>
+                        <TableCell align="right" sx={{ mt: 1, fontSize: '0.5rem', color: 'rgba(255, 255, 255, 0.7)', textAlign: 'left', fontFamily: 'pressStart2P' }}>{row.loss}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

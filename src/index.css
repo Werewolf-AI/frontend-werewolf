@@ -14,7 +14,7 @@
 
 body {
   margin: 0;
-  font-family: 'pressStart2P', cursive; /* 设置全局字体 */
+  font-family: 'pressStart2P', sans-serif;; /* 设置全局字体 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
