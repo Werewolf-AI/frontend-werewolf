@@ -165,14 +165,14 @@ const GameConfig = ({
             <div className="form-item">
                 <div className="font-medium text-left text-yellow-400" style={{ width: '14rem'}}>actor: </div>
                 <Select
-                    showSearch
+                    // showSearch
                     value={actors}
                     mode="multiple"
                     maxTagCount="responsive"
                     // style={{ width: '20rem', height: '3rem', backgroundColor: 'transparent' }}
                     className="select-input"
                     defaultActiveFirstOption={false}
-                    optionFilterProp="label"
+                    // optionFilterProp="label"
                     onChange={handleActorsChange}
                     notFoundContent={null}
                     options={(names || []).map((d) => ({

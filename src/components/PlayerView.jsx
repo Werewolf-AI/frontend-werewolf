@@ -1,9 +1,9 @@
 import React from "react";
-import WerewolfDemo from "../WerewolfDemo";
+import PlayerGameView from "./PlayerGameView"
 
 const PlayerView = () => {
     return (
-        <WerewolfDemo />
+        <PlayerGameView />
     )
 }
 

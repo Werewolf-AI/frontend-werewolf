@@ -1,28 +1,53 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css"
 import PlayerView from "./PlayerView";
+import { isStandalone } from "is-standalone";
 
 const Home = () => {
-    const isStandalone = () => {
-        return (window.matchMedia('(display-mode: standalone)').matches) || (navigator.standalone)
-      }
+    // const [isStandalone, setIsStandalone] = useState(false)
+    const checkStandalone = () => {
+    return (window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone)
+    }
+
     
-      useEffect(() => {
-        console.log('isstandalone', isStandalone())
-      }, [isStandalone])
+    // useEffect(() => {
+    //     const handleIsStandalone = () => {
+    //         const check = checkStandalone()
+    //         if (check) {
+    //             setIsStandalone(true)
+    //         } else {
+    //             setIsStandalone(false)
+    //         }
+    //     }
+    //     document.addEventListener('DOMContentLoaded', handleIsStandalone)
+
+    //     return () => {
+    //         document.removeEventListener('DOMContentLoaded', handleIsStandalone)
+    //       };
+    // }, [])
+    
+    useEffect(() => {
+        console.log('isstandalone', isStandalone)
+    }, [isStandalone])
 
     return (
         <>
-            {isStandalone && (
+            {/* {isStandalone && (
                 <div className="container">
                     <div className="guide">
+                        {isStandalone ? 'true' : 'false'}
                     To continue, install this app on your device to easily access it anytime by adding to your homescreen. No app store or download required.  
                     </div>
                 </div>
             )}
-            {!isStandalone && (
-                <PlayerView />
-            )}
+            {!isStandalone && ( */}
+            <div className="App">
+                <div className='overlay'></div>
+                <div className='content'>
+                    <PlayerView />
+                </div>
+            </div>
+            {/* )} */}
         </>
     )
 }

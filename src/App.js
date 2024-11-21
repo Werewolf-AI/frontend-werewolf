@@ -21,9 +21,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<div className='App'><Home /></div>} />
+        <Route path='/' element={<Home />} />
         <Route path='/control' element={
-                    <ControlView />
+            <ControlView />
           // <div className="App">
           //   <div className='overlay'></div>
           //   <div className='content'>
